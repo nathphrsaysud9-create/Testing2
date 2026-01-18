@@ -15,194 +15,200 @@ body{
   align-items:center;
   background:linear-gradient(135deg,#ffd6e8,#fff0f8,#e8f7ff);
   font-family:'Kanit',sans-serif;
-  overflow:hidden;
 }
 
-.page{
+/* ===== CARD ===== */
+.card{
+  width:420px;
+  padding:50px 35px;
+  background:#fff;
+  border-radius:36px;
+  text-align:center;
+  position:relative;
+  box-shadow:0 25px 60px rgba(255,105,180,.25);
+}
+
+/* ===== candy border ===== */
+.card::before{
+  content:"";
   position:absolute;
   inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transition:.8s ease;
+  border-radius:36px;
+  padding:10px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #ff5c8a 0 12px,
+      #fff 12px 24px
+    );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
 }
 
-.hidden{
-  opacity:0;
-  pointer-events:none;
-  transform:scale(.95);
+/* ===== text ===== */
+h1{
+  font-size:34px;
+  color:#ff5c8a;
+  margin-bottom:10px;
+}
+p{
+  font-size:18px;
+  color:#777;
+  margin-bottom:25px;
 }
 
-.card{
-  width:380px;
-  padding:40px 30px;
-  background:#fff;
-  border-radius:32px;
-  text-align:center;
-  box-shadow:0 25px 50px rgba(255,105,180,.25);
-}
-
-h1{font-size:30px;color:#ff6fae;margin-bottom:10px}
-p{color:#777;margin-bottom:25px;font-size:18px}
-
+/* ===== buttons ===== */
 .buttons{
+  position:relative;
+  height:110px;
   display:flex;
   justify-content:center;
-  gap:20px;
-  position:relative;
-  height:90px;
+  gap:22px;
+  margin-bottom:20px;
 }
 
 .choice{
   display:flex;
   flex-direction:column;
   align-items:center;
-  transition:.4s;
+  transition:.5s cubic-bezier(.175,.885,.32,1.275);
 }
 
 button{
   border:none;
-  padding:14px 26px;
+  padding:16px 34px;
   border-radius:50px;
-  font-size:18px;
+  font-size:20px;
   font-weight:bold;
   cursor:pointer;
-  transition:.4s cubic-bezier(.175,.885,.32,1.275);
+  transition:.45s cubic-bezier(.175,.885,.32,1.275);
 }
 
 #yes{
   background:linear-gradient(145deg,#6bff8a,#4cdb6a);
   z-index:2;
 }
-
 #no{
   background:linear-gradient(145deg,#ff8a8a,#e06a6a);
 }
 
-.btn-text{
-  margin-top:6px;
-  font-size:14px;
-  color:#ff6fae;
-  min-height:18px;
-}
-
 .fade-out{
   opacity:0;
-  transform:scale(.5);
+  transform:scale(.3);
   pointer-events:none;
 }
 
-#gifBox{margin-top:25px}
+/* ===== gif ===== */
+#gifBox{
+  margin-top:10px;
+}
 #gifBox img{
-  width:160px;
-  height:160px;
-  border-radius:20px;
+  width:170px;
+  height:170px;
+  object-fit:contain;
   animation:bounce 1.4s infinite;
 }
 
 @keyframes bounce{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
+  50%{transform:translateY(-14px)}
 }
 
-/* หน้า gift */
-.gift-title{font-size:32px;color:#ff6fae;margin-bottom:15px}
-.gift-text{font-size:18px;color:#666;margin-bottom:25px}
+#finalMessage{
+  display:none;
+  margin-top:20px;
+  font-size:20px;
+  color:#ff5c8a;
+}
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
-<div class="page" id="pageQuestion">
-  <div class="card">
-    <h1 id="question">รักเค้ามั้ย 💕</h1>
-    <p id="sub">ตอบจากใจได้เลยนะ</p>
+<div class="card">
+  <h1 id="question">รักเค้ามั้ย 💕</h1>
+  <p id="sub">ตอบจากใจได้เลยนะ</p>
 
-    <div class="buttons">
-      <div class="choice" id="yesWrap">
-        <button id="yes">YES 😊</button>
-        <div class="btn-text" id="yesText">เค้าแอบหวังอยู่นะ</div>
-      </div>
-
-      <div class="choice" id="noWrap">
-        <button id="no">NO 🥺</button>
-        <div class="btn-text" id="noText">ลองคิดอีกนิดได้ไหม</div>
-      </div>
+  <div class="buttons">
+    <div class="choice" id="yesWrap">
+      <button id="yes">YES 😊</button>
     </div>
-
-    <div id="gifBox">
-      <img id="gifImage" src="gif/main.gif">
+    <div class="choice" id="noWrap">
+      <button id="no">NO 🥺</button>
     </div>
   </div>
-</div>
 
-<!-- PAGE 2 -->
-<div class="page hidden" id="pageGift">
-  <div class="card">
-    <div class="gift-title">🎁 ของขวัญสำหรับเธอ</div>
-    <div class="gift-text">
-      ขอบคุณที่เลือกเค้านะ<br>
-      เค้าดีใจที่สุดเลย 💖
-    </div>
-    <div id="gifBox">
-      <img src="gif/gift.gif">
-    </div>
+  <!-- 👉 เปลี่ยน gif ตรงนี้ -->
+  <div id="gifBox">
+    <img id="gifImage" src="gif/main.gif">
+  </div>
+
+  <div id="finalMessage">
+    เค้าดีใจที่สุดเลยนะ 💖
   </div>
 </div>
 
 <script>
-const yes=document.getElementById("yes");
-const no=document.getElementById("no");
-const yesWrap=document.getElementById("yesWrap");
-const noWrap=document.getElementById("noWrap");
-const question=document.getElementById("question");
-const sub=document.getElementById("sub");
-const yesText=document.getElementById("yesText");
-const noText=document.getElementById("noText");
-const gif=document.getElementById("gifImage");
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const yesWrap = document.getElementById("yesWrap");
+const noWrap = document.getElementById("noWrap");
+const question = document.getElementById("question");
+const sub = document.getElementById("sub");
+const gif = document.getElementById("gifImage");
+const finalMsg = document.getElementById("finalMessage");
 
-const pageQ=document.getElementById("pageQuestion");
-const pageG=document.getElementById("pageGift");
+let noCount = 0;
+let yesScale = 1;
+let noScale = 1;
+let finished = false;
 
-let noCount=0;
-let yesScale=1;
-
-const messages=[
- {q:"แน่ใจเหรอ 🥺",s:"เค้าเริ่มใจบางแล้วนะ"},
- {q:"ไม่ใจอ่อนเลยเหรอ 🥹",s:"เค้าอ้อนอยู่น้า"},
- {q:"อย่าแกล้งเค้าสิ 😭",s:"หัวใจจะละลายแล้ว"},
- {q:"เค้ายอมแล้ว 🩷",s:"ไม่มีทางเลือกอื่นแล้วนะ"}
+const texts = [
+ ["แน่ใจเหรอ 🥺","เค้าเริ่มใจบางแล้ว"],
+ ["ไม่ใจอ่อนเลยเหรอ 🥹","อ้อนขนาดนี้แล้วนะ"],
+ ["อย่าใจร้ายสิ 😭","หัวใจจะละลายแล้ว"]
 ];
 
-no.onclick=()=>{
-  if(noCount>=messages.length) return;
+no.onclick = () => {
+  if (noCount >= texts.length || finished) return;
 
-  const m=messages[noCount];
-  question.textContent=m.q;
-  sub.textContent=m.s;
+  question.textContent = texts[noCount][0];
+  sub.textContent = texts[noCount][1];
 
-  yesScale+=0.25;
-  yes.style.transform=`scale(${yesScale})`;
+  yesScale += 0.3;
+  noScale -= 0.25;
 
-  gif.src=`gif/sad${noCount+1}.gif`;
+  yes.style.transform = `scale(${yesScale})`;
+  no.style.transform = `scale(${Math.max(noScale,0.4)})`;
 
+  gif.src = `gif/sad${noCount+1}.gif`;
   noCount++;
 
-  if(noCount===messages.length){
-    // YES ทับ NO
-    yesWrap.style.position="absolute";
-    yesWrap.style.left=noWrap.offsetLeft+"px";
-    yesWrap.style.top=noWrap.offsetTop+"px";
-    yes.style.transform="scale(1.6)";
-
+  if (noCount === texts.length) {
     noWrap.classList.add("fade-out");
+
+    yesWrap.style.position="absolute";
+    yesWrap.style.left="50%";
+    yesWrap.style.top="50%";
+    yesWrap.style.transform="translate(-50%,-50%) scale(1.8)";
   }
 };
 
-yes.onclick=()=>{
-  pageQ.classList.add("hidden");
-  setTimeout(()=>pageG.classList.remove("hidden"),500);
+yes.onclick = () => {
+  if (finished) return;
+  finished = true;
+
+  yesWrap.classList.add("fade-out");
+
+  setTimeout(()=>{
+    question.textContent="เย้ 💖";
+    sub.textContent="ของขวัญจากใจเค้า";
+    gif.src="gif/gift.gif";
+    finalMsg.style.display="block";
+  },400);
 };
 </script>
 
